@@ -20,7 +20,7 @@ const config = {
 };
 const game = new Phaser.Game(config);
 
-function preload() {
+function preload() {    //cuts image for item
     this.load.image('button1', 'assets/images/ui/blue_button01.png');
     this.load.spritesheet('characters', 'assets/images/characters.png', { frameWidth: 32, frameHeight: 32});
 
@@ -28,22 +28,27 @@ function preload() {
 
 function create() {
     var button = this.add.image(100, 100, 'button1');
-    button.setOrigin(0.5, 0.5);
+    button.setOrigin(0.5, 0.5); //sets position of button 1
 
-    this.add.sprite(300, 100, 'button1');
+    this.add.sprite(300, 100, 'button1');   //sets 
 
-    this.add.image(300, 300, 'items', 0);
+    this.chest = this.physics.add.image(300, 300, 'items', 0);  //sets the position of the item
 
-    this.physics.add.image(500,100, 'button1');
+    this.wall = this.physics.add.image(500,100, 'button1');
+    this.wall.setImmovable();   //sets wall immovable
 
     this.player = this.physics.add.image(32, 32, 'characters', 0);
     this.player.setScale(2);
+    this.player.body.collideWorldBounds = true;     //this sets boundaries
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.physics.add.collider(this.player, this.wall); //sets collision for player and wall
+    this.physics.add.overlap(this.player, this.chest, function() { console.log ('overlap') ;}); //sets overlap for player and chests
+
+    this.cursors = this.input.keyboard.createCursorKeys();  //adds keyboard inputs
     
 }
 
-function update() {
+function update() {     //sets player movement
 this.player.setVelocity(0);
 
     if (this.cursors.left.isDown) {
