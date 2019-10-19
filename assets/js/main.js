@@ -65,3 +65,11 @@ this.player.setVelocity(0);
     } else {
     }
 }
+
+/*
+git status to check for changes
+git diff file to see changes in code
+git add 'file' to add file to staging
+git commit to add a message to the commit (shift + z + z to save)
+git push to push commit to github
+*/
